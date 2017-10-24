@@ -1,0 +1,16 @@
+{
+  "name": "hci-multi-touch-study",
+  "version": "1.0.0",
+  "description": "Project developed as a course requirement for CMPT 866 – Research Methods in HCI at USASK",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiranbandi/HCI-MultiTouchStudy.git"
+  },
+  "author": "kiranbandi",
+  "license": "MIT",
+  "homepage": "https://github.com/kiranbandi/HCI-MultiTouchStudy#readme"
+}
