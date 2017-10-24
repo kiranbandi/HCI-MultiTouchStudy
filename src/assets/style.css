@@ -1,0 +1,28 @@
+.para-text {
+    font-size: 20px;
+}
+.para-title {
+    color: #7ca79d;
+    padding-bottom: 25px;
+}
+
+.screen-1>.jumbotron {
+    color: #5a87b7;
+}
+
+.screen-1 .intro-button {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.screen-1 .intro-button button {
+    margin-right: 20px;
+}
+
+.screen-2 form {
+    margin-top: 40px;
+}
+
+.screen-2 form a {
+    margin-right: 20px;
+}

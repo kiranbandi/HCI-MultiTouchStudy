@@ -4,7 +4,8 @@
   "description": "Project developed as a course requirement for CMPT 866 – Research Methods in HCI at USASK",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "deploy": "gh-pages -d src"
   },
   "repository": {
     "type": "git",
@@ -12,5 +13,8 @@
   },
   "author": "kiranbandi",
   "license": "MIT",
-  "homepage": "https://github.com/kiranbandi/HCI-MultiTouchStudy#readme"
+  "homepage": "https://github.com/kiranbandi/HCI-MultiTouchStudy#readme",
+  "devDependencies": {
+    "gh-pages": "^1.0.0"
+  }
 }
