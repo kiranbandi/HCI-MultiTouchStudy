@@ -88,7 +88,7 @@ $(function () {
                 var selectedValue = event.target.id.split("interfaceA-")[1];
                 console.log(selectedValue);
                 if (mode == 'demo') {
-                    $("." + screenIndex + ' #interfaceA-selected-option').text("OPTION - " + selectedValue);
+                    $("." + screenIndex + ' #interfaceA-selected-option').text("SELECTED OPTION - " + selectedValue);
                 }
                 if (mode == 'training') {
                     if (optionStore == selectedValue) {
