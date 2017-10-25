@@ -69,7 +69,7 @@ $(function () {
                 } else {
                     console.log(INTAStore);
                     saveData(participantID+"-"+"INTA",INTAStore);
-                    alert("STUDY COMPLETE");
+                    alert("Interface A Study Complete.If you havent finished Interface B please proceed to that.");
                     resetStudy();
                     showScreen('screen-2');
                 }
