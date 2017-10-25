@@ -74,12 +74,23 @@
             <b>(B)</b>.</p>
         <p class='text-justify para-text'>You may leave the study at any point by simply closing the session on the device.Your data will not be collected
             and purged on spot.</p>
-        <p class='text-justify para-text'>Please enter your participant ID provided to you at the beginning of the study.</p>
+        <p class='text-justify para-text'>Please enter your participant ID provided to you at the beginning of the study and choose the interface in the order
+            as instructed .</p>
         <form class="form-horizontal">
             <div class="form-group">
                 <label class="control-label col-xs-5" for="participantid">Participant ID</label>
                 <div class=" col-xs-7">
                     <input type="text" class="form-control" id="participantid">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-5" for='choice'>Level</label>
+                <div class=" col-xs-7">
+                    <select class="form-control" id="choice">
+                        <option value='INTA' selected>INTERFACE A</option>
+                        <option value='INTB'>INTERFACE B</option>
+                        <option value='questionBlock'>Questionnaire</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -134,7 +145,7 @@
     <section class="screen screen-4 container hidden">
         <div class='row'>
             <h1 class='text-center para-title'>INTERFACE A - TRAINING </h1>
-            <button type="button" class="start-stimuli start-stimuli-interface-A btn btn-info ">Start Stimuli</button>
+            <button type="button" class="start-stimuli start-stimuli-interface-A btn btn-primary ">Start Stimuli</button>
             <h2 class='text-center para-title interface-A-stimuli'></h2>
             <div class='interface-A-touch'>
                 <div class='main-options text-center'>
@@ -159,6 +170,35 @@
             <div class='col-xs-12 intro-button text-center'>
                 <a type="button" id='goto-screen-3' class="goto-button btn back-button">Back</a>
                 <button type="button" id='goto-screen-5' class="goto-button btn btn-primary ">Proceed to First Experiment</button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SCREEN 5  -->
+
+    <section class="screen screen-5 container hidden">
+        <div class='row'>
+            <h1 class='text-center para-title'>INTERFACE A - BLOCK 1</h1>
+            <button type="button" class="start-stimuli start-stimuli-interface-A btn btn-primary ">Start Stimuli</button>
+            <h2 class='text-center para-title interface-A-stimuli'></h2>
+            <div class='interface-A-touch'>
+                <div class='main-options text-center hidden'>
+                    <i id='method' class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+                    <i id='thickness' class="fa fa-minus-square-o fa-2x" aria-hidden="true"></i>
+                </div>
+                <div class='sub-options-container'>
+                    <div id='sub-options-method' class='sub-options hidden text-center'>
+                        <div id='interfaceA-PEN' class="btn">PEN</div>
+                        <div id='interfaceA-PENCIL' class="btn">PENCIL</div>
+                        <div id='interfaceA-BRUSH' class="btn">BRUSH</div>
+                    </div>
+                    <div id='sub-options-thickness' class='sub-options hidden text-center'>
+                        <div id='interfaceA-THIN' class="btn">THIN</div>
+                        <div id='interfaceA-NORMAL' class="btn">NORMAL</div>
+                        <div id='interfaceA-THICK' class="btn">THICK</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
