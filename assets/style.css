@@ -1,10 +1,15 @@
+.screen {
+    margin:20px 20px;
+}
+
 .para-text {
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .para-title {
     color: #7ca79d;
-    padding-bottom: 25px;
+    padding-bottom: 20px;
+    font-size: 20px;
 }
 
 .back-button {
@@ -16,9 +21,11 @@
     margin-top: 25px;
 }
 
-.screen-1>.jumbotron {
+.screen-1>.jumbotron>h1 {
     color: #5a87b7;
+    font-size: 32px;
 }
+
 
 .screen-2 form {
     margin-top: 40px;
@@ -28,11 +35,15 @@
     margin-right: 20px;
 }
 
+.screen-2 label{
+    margin-top: 6px;
+}
+
 .interface-A-touch .fa {
-    border: 5px solid black;
-    padding: 10px;
-    border-radius: 24px;
-    margin: 10px 60px;
+    border: 2px solid black;
+    padding: 5px;
+    border-radius: 14px;
+    margin: 10px 45px;
 }
 
 .interface-A-touch .fa.fa-pencil {
@@ -49,11 +60,11 @@
 }
 
 .sub-options .btn {
-    border: 5px solid;
+    border: 2px solid;
     margin: 10px;
     color: #0c0b0b;
-    font-size: 20px;
-    border-radius: 15px;
+    font-size: 14px;
+    border-radius: 12px;
 }
 
 #sub-options-method {
@@ -66,7 +77,7 @@
 
 #interfaceA-selected-option {
     text-align: center;
-    font-size: 22px;
+    font-size: 15px;
     font-weight: bold;
     color: #4b7988;
 }
@@ -77,12 +88,16 @@
 }
 
 .interface-A-stimuli {
-    border: 5px solid #47a4b3;
-    padding-top: 15px;
+    border: 3px solid #47a4b3;
+    padding: 5px 0px;
+    width: 75%;
+    margin: 10px 12.5% 20px 12.5%;
 }
+
 .interface-A-stimuli.red-border {
     border: 5px solid #e66868;
 }
+
 .interface-A-stimuli.green-border {
     border: 5px solid #52a752;
 }

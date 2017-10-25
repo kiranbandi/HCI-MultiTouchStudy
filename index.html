@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/bootstrap.min.css">
     <!--  jquery and bootstrap library -->
@@ -47,8 +47,8 @@
                         to the actions and screen positions and this would lead to an improved performance.</p>
                 </div>
                 <div class='col-xs-12 intro-button'>
-                    <a type="button" href='https://www.google.com' class="btn btn-lg back-button">Exit</a>
-                    <button type="button" id='goto-screen-2' class="goto-button btn btn-primary btn-lg">Proceed</button>
+                    <a type="button" href='https://www.google.com' class="btn back-button">Exit</a>
+                    <button type="button" id='goto-screen-2' class="goto-button btn btn-primary">Proceed</button>
                 </div>
             </div>
         </div>
@@ -75,17 +75,17 @@
         <p class='text-justify para-text'>You may leave the study at any point by simply closing the session on the device.Your data will not be collected
             and purged on spot.</p>
         <p class='text-justify para-text'>Please enter your participant ID provided to you at the beginning of the study.</p>
-        <form class="row form-horizontal">
+        <form class="form-horizontal">
             <div class="form-group">
-                <label class="control-label col-sm-2" for="participantid">Participant ID :</label>
-                <div class="col-sm-10">
+                <label class="control-label col-xs-4" for="participantid">Participant ID</label>
+                <div class=" col-xs-8">
                     <input type="text" class="form-control" id="participantid">
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-12 text-center">
-                    <a type="button" id='goto-screen-1' class="goto-button btn btn-lg back-button">Back</a>
-                    <button type="button" id='pid-form' class="btn btn-lg btn-info">Submit</button>
+                <div class=" col-xs-12 text-center">
+                    <a type="button" id='goto-screen-1' class="goto-button btn back-button">Back</a>
+                    <button type="button" id='pid-form' class="btn btn-info">Submit</button>
                 </div>
             </div>
         </form>
@@ -123,8 +123,8 @@
             </div>
             <h2 id='interfaceA-selected-option'>Select an option to see it here !!</h2>
             <div class='col-xs-12 intro-button text-center'>
-                <a type="button" id='goto-screen-2' class="goto-button btn btn-lg back-button">Back</a>
-                <button type="button" id='goto-screen-4' class="goto-button btn btn-primary btn-lg ">Start Training</button>
+                <a type="button" id='goto-screen-2' class="goto-button btn back-button">Back</a>
+                <button type="button" id='goto-screen-4' class="goto-button btn btn-primary ">Start Training</button>
             </div>
         </div>
     </section>
@@ -134,7 +134,7 @@
     <section class="screen screen-4 container hidden">
         <div class='row'>
             <h1 class='text-center para-title'>INTERFACE A - TRAINING </h1>
-            <button type="button" class="start-stimuli start-stimuli-interface-A btn btn-primary btn-lg ">Start Stimuli</button>
+            <button type="button" class="start-stimuli start-stimuli-interface-A btn btn-info ">Start Stimuli</button>
             <h2 class='text-center para-title interface-A-stimuli'></h2>
             <div class='interface-A-touch'>
                 <div class='main-options text-center'>
@@ -154,10 +154,11 @@
                     </div>
                 </div>
             </div>
-            <h2 class='text-center para-title interface-A-output-display'></h2>
+            <br/>
+            <br/>
             <div class='col-xs-12 intro-button text-center'>
-                <a type="button" id='goto-screen-3' class="goto-button btn btn-lg back-button">Back</a>
-                <button type="button" id='goto-screen-5' class="goto-button btn btn-primary btn-lg ">Proceed to First Experiment</button>
+                <a type="button" id='goto-screen-3' class="goto-button btn back-button">Back</a>
+                <button type="button" id='goto-screen-5' class="goto-button btn btn-primary ">Proceed to First Experiment</button>
             </div>
         </div>
     </section>
