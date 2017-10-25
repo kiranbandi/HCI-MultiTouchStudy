@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 
 <head>
+
+    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/bootstrap.min.css">
     <!--  jquery and bootstrap library -->
     <script src="assets/jquery.min.js"></script>
     <script src="assets/bootstrap.min.js"></script>
+    <script src="assets/hammer.min.js"></script>
     <!-- Root script file -->
     <script type="text/javascript" src="assets/script.js"></script>
     <!-- css file for overriding default styles -->
@@ -12,12 +15,153 @@
     <title>HCI Multi-Touch Study</title>
 </head>
 
-<body class="container">
-    <section class="row">
+<body>
+
+    <!-- SCREEN 1  -->
+
+    <section class="screen screen-1">
         <div class="jumbotron">
-            <h2>HCI Multi-Touch Study</h2>
+            <h1 class='text-center'>CPMT-866 Multi Touch Study</h1>
+        </div>
+        <div class="container">
+            <div class='row'>
+                <h1 class='text-center para-title'>Position specific multi touch interaction method in small screen devices</h1>
+                <div class='text-justify intro-text'>
+                    <p class='para-text'>The project is a comparative study of the effectiveness between position specific multi touch interface
+                        and a standard menu based interface in small screen touch devices. In existing mobile devices menu
+                        bars are hidden by default to maximise screen space and thus, when a user needs to perform an action
+                        they need to invoke the menu bar which is not only time consuming but disrupts user focus. </p>
+                    <p class='para-text'>In this research an additional degree of freedom is provided using multi touch inputs relative to each
+                        finger. This will reduce the dependency on menu bars and users can carry out their work uninterrupted
+                        without the need to invoke and access menu bars. This can save users a lot of time when carrying
+                        out repeated tasks like switching between modes etc. Also the actions performed in the new interface
+                        are scale independent and can be performed by the user during any time on the screen, thus reducing
+                        the time taken in comparison to a traditional menu bar model. </p>
+                    <p class='para-text'>As a part of the project participants will be asked to perform a series of tasks where they will be responding
+                        to onscreen stimuli and selecting options using both the position specific touch interface and a
+                        standard menu based interface.</p>
+                    <p class='para-text'> The objective of the study is to compare the selection time and the error rate of both the interfaces
+                        and estimate the effectiveness of the new interface. If the new method is faster and less error prone
+                        it can be used in enhancing the interfaces of existing mobile applications and thus increase the
+                        productivity factor on small screen devices. Also with time users can develop spatial memory related
+                        to the actions and screen positions and this would lead to an improved performance.</p>
+                </div>
+                <div class='col-xs-12 intro-button'>
+                    <a type="button" href='https://www.google.com' class="btn btn-lg back-button">Exit</a>
+                    <button type="button" id='goto-screen-2' class="goto-button btn btn-primary btn-lg">Proceed</button>
+                </div>
+            </div>
         </div>
     </section>
+
+    <!-- SCREEN 2  -->
+
+    <section class="screen screen-2 container hidden">
+        <h1 class='text-center para-title'>CPMT-866 Multi Touch Study</h1>
+        <p class='text-justify para-text'>As a part of this study you will be primarily working with a drawing/tracing application.You will be shown an on
+            screen stimuli and will be asked to choose from a set of given options on the basis of what you see.</p>
+        <p class='text-justify para-text'>You can choose from a set of 6 options that are divided by type into two sets .
+            <b>Set 1</b> consists of drawing methods :
+            <b>Pen</b> ,
+            <b>Brush</b> and
+            <b>Pencil</b> while
+            <b>Set 2</b> has different types of strokes :
+            <b>Thin</b> ,
+            <b>Normal</b> and
+            <b>Thick</b>.</p>
+        <p class='text-justify para-text'>You will be asked to select the above mentioned options using two types of interfaces a normal touch based interface
+            <b>(A)</b> and a multi touch position specific inteface
+            <b>(B)</b>.</p>
+        <p class='text-justify para-text'>You may leave the study at any point by simply closing the session on the device.Your data will not be collected
+            and purged on spot.</p>
+        <p class='text-justify para-text'>Please enter your participant ID provided to you at the beginning of the study.</p>
+        <form class="row form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="participantid">Participant ID :</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="participantid">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12 text-center">
+                    <a type="button" id='goto-screen-1' class="goto-button btn btn-lg back-button">Back</a>
+                    <button type="button" id='pid-form' class="btn btn-lg btn-info">Submit</button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <!-- SCREEN 3  -->
+
+    <section class="screen screen-3 container hidden">
+        <div class='row'>
+            <h1 class='text-center para-title'>INTERFACE A</h1>
+            <p class='text-justify para-text'>This is a normal touch based interface.As you can see below you have two options to choose from and each option
+                has 3 sub-options within.You will be shown below the option that you have selected so please go ahead and
+                try selecting a couple of different options.</p>
+            <p class='text-justify para-text'>Once you feel you are comfortable with the interface click on proceed to go to the training phase.In the training
+                phase you will be shown a stimuli at the top of the screen and you will need to select the corresponding
+                option from the options below.Once you select the correct option you will be show the next stimuli.</p>
+            <p class='text-justify para-text'>The training phase will keep on repeating the options so feel free to repeat it as many times as you want.</p>
+            <div class='interface-A-touch'>
+                <div class='main-options text-center'>
+                    <i id='method' class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+                    <i id='thickness' class="fa fa-minus-square-o fa-2x" aria-hidden="true"></i>
+                </div>
+                <div class='sub-options-container'>
+                    <div id='sub-options-method' class='sub-options hidden text-center'>
+                        <div id='interfaceA-PEN' class="btn">PEN</div>
+                        <div id='interfaceA-PENCIL' class="btn">PENCIL</div>
+                        <div id='interfaceA-BRUSH' class="btn">BRUSH</div>
+                    </div>
+                    <div id='sub-options-thickness' class='sub-options hidden text-center'>
+                        <div id='interfaceA-THIN' class="btn">THIN</div>
+                        <div id='interfaceA-NORMAL' class="btn">NORMAL</div>
+                        <div id='interfaceA-THICK' class="btn">THICK</div>
+                    </div>
+                </div>
+            </div>
+            <h2 id='interfaceA-selected-option'>Select an option to see it here !!</h2>
+            <div class='col-xs-12 intro-button text-center'>
+                <a type="button" id='goto-screen-2' class="goto-button btn btn-lg back-button">Back</a>
+                <button type="button" id='goto-screen-4' class="goto-button btn btn-primary btn-lg ">Start Training</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCREEN 4  -->
+
+    <section class="screen screen-4 container hidden">
+        <div class='row'>
+            <h1 class='text-center para-title'>INTERFACE A - TRAINING </h1>
+            <button type="button" class="start-stimuli start-stimuli-interface-A btn btn-primary btn-lg ">Start Stimuli</button>
+            <h2 class='text-center para-title interface-A-stimuli'></h2>
+            <div class='interface-A-touch'>
+                <div class='main-options text-center'>
+                    <i id='method' class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+                    <i id='thickness' class="fa fa-minus-square-o fa-2x" aria-hidden="true"></i>
+                </div>
+                <div class='sub-options-container'>
+                    <div id='sub-options-method' class='sub-options hidden text-center'>
+                        <div id='interfaceA-PEN' class="btn">PEN</div>
+                        <div id='interfaceA-PENCIL' class="btn">PENCIL</div>
+                        <div id='interfaceA-BRUSH' class="btn">BRUSH</div>
+                    </div>
+                    <div id='sub-options-thickness' class='sub-options hidden text-center'>
+                        <div id='interfaceA-THIN' class="btn">THIN</div>
+                        <div id='interfaceA-NORMAL' class="btn">NORMAL</div>
+                        <div id='interfaceA-THICK' class="btn">THICK</div>
+                    </div>
+                </div>
+            </div>
+            <h2 class='text-center para-title interface-A-output-display'></h2>
+            <div class='col-xs-12 intro-button text-center'>
+                <a type="button" id='goto-screen-3' class="goto-button btn btn-lg back-button">Back</a>
+                <button type="button" id='goto-screen-5' class="goto-button btn btn-primary btn-lg ">Proceed to First Experiment</button>
+            </div>
+        </div>
+    </section>
+
 
 </body>
 
