@@ -163,7 +163,8 @@
     top: 5px;
 }
 
-#questionnaire>div.form-group:nth-child(2)>label , #questionnaire>div.form-group:nth-child(9)>label {
+#questionnaire>div.form-group:nth-child(2)>label,
+#questionnaire>div.form-group:nth-child(9)>label {
     margin-top: -10px;
 }
 
@@ -172,5 +173,39 @@
 }
 
 .screen-9 .form-group {
-    margin-bottom: 35px;
+    margin-bottom: 25px;
+}
+
+.start-stimuli-interface-B {
+    margin: 10px auto;
+    width: 100%;
+}
+
+.interface-B-stimuli {
+    border: 3px solid #47a4b3;
+    padding: 5px 0px;
+    width: 60%;
+    margin: 5px 20% 5px 20%;
+}
+
+.interface-A-stimuli.red-border {
+    border: 5px solid #e66868;
+}
+
+.interface-A-stimuli.green-border {
+    border: 5px solid #52a752;
+}
+
+.screen-6 {
+    margin: 10px 5px;
+}
+
+.screen-6 .para-title {
+    padding-bottom: 5px;
+}
+
+.interface-B-touch {
+    background-color: #f3d8d0;
+    height: 520px;
+    width: 100%;
 }
