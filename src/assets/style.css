@@ -119,10 +119,18 @@
     margin: 20px 30px;
 }
 
+.screen-9 .para-title {
+    padding-bottom: 5px;
+}
+
+.screen-9>h4 {
+    margin: 10px 0px;
+}
+
 .screen-9 label {
     margin: 30px 10px 15px 10px;
     text-align: justify;
-    font-weight:100;
+    font-weight: bold;
 }
 
 .screen-9 .col-xs-12.text-center {
@@ -153,4 +161,16 @@
     right: -15px;
     font-weight: bold;
     top: 5px;
+}
+
+#questionnaire>div.form-group:nth-child(2)>label , #questionnaire>div.form-group:nth-child(9)>label {
+    margin-top: -10px;
+}
+
+#second-heading {
+    margin-top: 75px;
+}
+
+.screen-9 .form-group {
+    margin-bottom: 35px;
 }
