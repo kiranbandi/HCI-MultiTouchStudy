@@ -13,9 +13,18 @@ $(function () {
     var mainOptionsTouch, subOptionsTouch;
     var INTAStore = [];
 
+    $('input[type="range"]').rangeslider({
+        polyfill: false
+    });
+
     $(".goto-button").click(function (event) {
         var screenID = event.target.id.split("goto-")[1];
         showScreen(screenID);
+    });
+    $("#questionnaire").submit(function (event) {
+        event.preventDefault();
+        alert("Thanks for taking part in the study .");
+        showScreen('screen-2');
     });
 
     ///////////////////////////////////// 
@@ -37,13 +46,13 @@ $(function () {
         $(".screen-5" + " h1.para-title").text('INTERFACE A -BLOCK 1');
     }
 
-    function saveData(name,dataArray){
-        var csvContent = "data:text/csv;charset=utf-8,"+dataArray.join("\n");
+    function saveData(name, dataArray) {
+        var csvContent = "data:text/csv;charset=utf-8," + dataArray.join("\n");
         var encodedUri = encodeURI(csvContent);
         var link = document.createElement("a");
         link.setAttribute("href", encodedUri);
-        link.setAttribute("download", name+".csv");
-        link.click(); 
+        link.setAttribute("download", name + ".csv");
+        link.click();
     }
     ////////////////////////////////////
 
@@ -64,11 +73,11 @@ $(function () {
                     INTAIndex[1] = 0; // reset trial value
                     $("." + screenID + " .start-stimuli-interface-A").removeClass('hidden');
                     $("." + screenID + " .interface-A-stimuli").addClass("hidden");
-                    $("." + screenID + " div.main-options").addClass("hidden");
+                    $("." + screenID + " .menu-tab").addClass("hidden");
                     $("." + screenID + " h1.para-title").text('INTERFACE A - BLOCK 2');
                 } else {
                     console.log(INTAStore);
-                    saveData(participantID+"-"+"INTA",INTAStore);
+                    saveData(participantID + "-" + "INTA", INTAStore);
                     alert("Interface A Study Complete.If you havent finished Interface B please proceed to that.");
                     resetStudy();
                     showScreen('screen-2');
@@ -80,15 +89,16 @@ $(function () {
     $(".start-stimuli-interface-A").click(function (event) {
         var screenID = mode == 'INTA' ? 'screen-5' : 'screen-4';
         $("." + screenID + " .start-stimuli-interface-A").addClass('hidden');
-        $("." + screenID + " div.main-options").removeClass("hidden");
+        $("." + screenID + " .menu-tab").removeClass("hidden");
         showStimuli(screenID);
     });
 
 
     $("#pid-form").click(function () {
+        var level = $("#choice").val();
         participantID = $("#participantid").val();
         if (participantID) {
-            showScreen('screen-3');
+            showScreen(level == 'INTA' ? 'screen-3' : (level == 'INTB' ? 'screen-6' : 'screen-9'));
         } else {
             alert("Participant ID cannot be empty");
         }
@@ -130,8 +140,12 @@ $(function () {
             subOptionsTouch.destroy();
         }
 
+        menuBarTouch = Hammer($("." + screenIndex + ' .interface-A-touch .fa-ellipsis-v')[0]).on("tap", function (event) {
+            $("." + screenIndex + " .interface-A-touch .main-options").toggleClass('hidden');
+        });
+
         mainOptionsTouch = Hammer($("." + screenIndex + ' .interface-A-touch .main-options')[0]).on("tap", function (event) {
-            if (event.target && event.target.id && (event.target.id == 'method' || event.target.id == 'thickness') ) {
+            if (event.target && event.target.id && (event.target.id == 'method' || event.target.id == 'thickness')) {
                 $("." + screenIndex + " .sub-options").addClass("hidden");
                 $("." + screenIndex + " #sub-options-" + event.target.id).removeClass('hidden');
             }
@@ -140,6 +154,7 @@ $(function () {
         subOptionsTouch = Hammer($("." + screenIndex + ' .interface-A-touch .sub-options-container')[0]).on("tap", function (event) {
             if (event.target && event.target.id && (event.target.id.indexOf("interfaceA-") >= 0)) {
                 $("." + screenIndex + " .sub-options").addClass("hidden");
+                $("." + screenIndex + " .interface-A-touch .main-options").addClass('hidden');
                 var selectedValue = event.target.id.split("interfaceA-")[1];
                 if (mode == 'demo') {
                     $("." + screenIndex + ' #interfaceA-selected-option').text("SELECTED OPTION - " + selectedValue);
@@ -157,7 +172,7 @@ $(function () {
                 if (mode == 'INTA') {
                     if (optionStore == selectedValue) {
                         $("." + screenIndex + ' .interface-A-stimuli').removeClass('red-border').addClass('green-border');
-                        INTAStore.push(participantID + "," + "INTA" + "," + INTAIndex.join(",") + "," +countDown);
+                        INTAStore.push(participantID + "," + "INTA" + "," + INTAIndex.join(",") + "," + countDown);
                         stopTimer();
                         showStimuli(screenIndex);
                     } else {
