@@ -17,7 +17,7 @@ $(function () {
     //  Variable store exclusively for INT A
 
     var possibleDemoOptions = ["PEN", "PENCIL", "BRUSH", "MEDIUM", "THIN", "THICK"];
-    var mainOptionsTouch, subOptionsTouch;
+    var mainOptionsTouch, subOptionsTouch, menuBarTouch, mainOptionsPress, subOptionsPress, menuBarPress;
 
     //  Variable store exclusively for INT B
     var INTBTouchPanel;
@@ -183,25 +183,31 @@ $(function () {
 
     // Function that handles touch events for interface A
     function reinitialize(screenIndex) {
-        if (mainOptionsTouch) {
+        if (mainOptionsTouch)
             mainOptionsTouch.destroy();
-        }
-        if (subOptionsTouch) {
+        if (subOptionsTouch)
             subOptionsTouch.destroy();
+        if (menuBarTouch)
+            menuBarTouch.destroy();
+        if (mainOptionsPress)
+            mainOptionsTouch.destroy();
+        if (subOptionsPress)
+            subOptionsTouch.destroy();
+        if (menuBarPress)
+            menuBarTouch.destroy();
+
+        function MenuCallBack(event) {
+            $("." + screenIndex + " .interface-A-touch .main-options").toggleClass('hidden');
         }
 
-        menuBarTouch = Hammer($("." + screenIndex + ' .interface-A-touch .fa-ellipsis-v')[0]).on("tap", function (event) {
-            $("." + screenIndex + " .interface-A-touch .main-options").toggleClass('hidden');
-        });
-
-        mainOptionsTouch = Hammer($("." + screenIndex + ' .interface-A-touch .main-options')[0]).on("tap", function (event) {
+        function mainOptionsCallBack(event) {
             if (event.target && event.target.id && (event.target.id == 'method' || event.target.id == 'thickness')) {
                 $("." + screenIndex + " .sub-options").addClass("hidden");
                 $("." + screenIndex + " #sub-options-" + event.target.id).removeClass('hidden');
             }
-        });
+        }
 
-        subOptionsTouch = Hammer($("." + screenIndex + ' .interface-A-touch .sub-options-container')[0]).on("tap", function (event) {
+        function subOptionsCallBack(event) {
             if (event.target && event.target.id && (event.target.id.indexOf("interfaceA-") >= 0)) {
                 $("." + screenIndex + " .sub-options").addClass("hidden");
                 $("." + screenIndex + " .interface-A-touch .main-options").addClass('hidden');
@@ -225,12 +231,17 @@ $(function () {
                     }
                 }
             }
-        });
+        }
+        // Quick Fix so touch works for press and tap 
+        menuBarTouch = Hammer($("." + screenIndex + ' .interface-A-touch .fa-ellipsis-v')[0]).on("tap", MenuCallBack);
+        mainOptionsTouch = Hammer($("." + screenIndex + ' .interface-A-touch .main-options')[0]).on("tap", mainOptionsCallBack);
+        subOptionsTouch = Hammer($("." + screenIndex + ' .interface-A-touch .sub-options-container')[0]).on("tap", subOptionsCallBack);
+        menuBarPress = Hammer($("." + screenIndex + ' .interface-A-touch .fa-ellipsis-v')[0]).on("press", MenuCallBack);
+        mainOptionsPress = Hammer($("." + screenIndex + ' .interface-A-touch .main-options')[0]).on("press", mainOptionsCallBack);
+        subOptionsPress = Hammer($("." + screenIndex + ' .interface-A-touch .sub-options-container')[0]).on("press", subOptionsCallBack);
     }
 
-
     // <==========================================Functions built exclusively for INTERFACE B =========================================================
-
 
     // Event listener that starts showing stimuli in INT B when button is clicked 
     $(".start-stimuli-interface-B").click(function (event) {
