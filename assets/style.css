@@ -181,13 +181,6 @@
     width: 100%;
 }
 
-.interface-B-stimuli {
-    border: 3px solid #47a4b3;
-    padding: 5px 0px;
-    width: 60%;
-    margin: 5px 20% 5px 20%;
-}
-
 .interface-A-stimuli.red-border {
     border: 5px solid #e66868;
 }
@@ -196,19 +189,37 @@
     border: 5px solid #52a752;
 }
 
-.screen-6 {
+.screen-6,
+.screen-7,
+.screen-8 {
     margin: 10px 5px;
 }
 
-.screen-6 .para-title {
-    padding-bottom: 5px;
-    margin-top: 5px;
+.screen-6 .para-title,
+.screen-7 .para-title,
+.screen-8 .para-title {
+    padding-bottom: 3px;
+    padding-top: 3px;
     margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.screen-7 .para-title,
+.screen-8 .para-title {
+    border: 2px solid #ffffff;
+    margin-top: 0px;
+}
+
+.screen-7 .para-title.small-box,
+.screen-8 .para-title.small-box {
+    width: 60%;
+    margin-right: 20%;
+    margin-left: 20%;
 }
 
 .interface-B-touch {
     background-color: #f3d8d0;
-    height: 520px;
+    height: 530px;
     width: 100%;
 }
 
@@ -220,4 +231,12 @@
 
 .screen-6 .intro-button {
     margin-top: 10px;
+}
+
+.para-title.red-border {
+    border: 2px solid #e66868;
+}
+
+.para-title.green-border {
+    border: 2px solid #52a752;
 }
