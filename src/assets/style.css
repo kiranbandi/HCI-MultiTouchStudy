@@ -202,10 +202,22 @@
 
 .screen-6 .para-title {
     padding-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .interface-B-touch {
     background-color: #f3d8d0;
     height: 520px;
     width: 100%;
+}
+
+.screen-6 .interface-B-touch {
+    background-color: #f3d8d0;
+    height: 485px;
+    width: 100%;
+}
+
+.screen-6 .intro-button {
+    margin-top: 10px;
 }
