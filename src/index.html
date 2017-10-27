@@ -67,14 +67,14 @@
             <b>Pencil</b> while
             <b>Set 2</b> has different types of strokes :
             <b>Thin</b> ,
-            <b>Normal</b> and
+            <b>Medium</b> and
             <b>Thick</b>.</p>
         <p class='text-justify para-text'>You will be asked to select the above mentioned options using two types of interfaces a normal touch based interface
             <b>(A)</b> and a multi touch position specific inteface
             <b>(B)</b>.</p>
         <p class='text-justify para-text'>Please enter your participant ID provided to you at the beginning of the study and choose the interface in the order
             as instructed .</p>
-        <form class="form-horizontal">
+        <form class="form-horizontal" id='pid-form'>
             <div class="form-group">
                 <label class="control-label col-xs-5" for="participantid">Participant ID</label>
                 <div class=" col-xs-7">
@@ -94,7 +94,7 @@
             <div class="form-group">
                 <div class=" col-xs-12 text-center">
                     <a type="button" id='goto-screen-1' class="goto-button btn back-button">Back</a>
-                    <button type="button" id='pid-form' class="btn btn-info">Submit</button>
+                    <button type="submit" class="btn btn-info">Submit</button>
                 </div>
             </div>
         </form>
@@ -127,7 +127,7 @@
                     </div>
                     <div id='sub-options-thickness' class='sub-options hidden text-center'>
                         <div id='interfaceA-THIN' class="btn">THIN</div>
-                        <div id='interfaceA-NORMAL' class="btn">NORMAL</div>
+                        <div id='interfaceA-MEDIUM' class="btn">MEDIUM</div>
                         <div id='interfaceA-THICK' class="btn">THICK</div>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
                     </div>
                     <div id='sub-options-thickness' class='sub-options hidden text-center'>
                         <div id='interfaceA-THIN' class="btn">THIN</div>
-                        <div id='interfaceA-NORMAL' class="btn">NORMAL</div>
+                        <div id='interfaceA-MEDIUM' class="btn">MEDIUM</div>
                         <div id='interfaceA-THICK' class="btn">THICK</div>
                     </div>
                 </div>
@@ -202,7 +202,7 @@
                     </div>
                     <div id='sub-options-thickness' class='sub-options hidden text-center'>
                         <div id='interfaceA-THIN' class="btn">THIN</div>
-                        <div id='interfaceA-NORMAL' class="btn">NORMAL</div>
+                        <div id='interfaceA-MEDIUM' class="btn">MEDUIM</div>
                         <div id='interfaceA-THICK' class="btn">THICK</div>
                     </div>
                 </div>
@@ -236,7 +236,6 @@
         <div class='row'>
             <h1 class='text-center para-title'>INTERFACE B - TRAINING </h1>
             <button type="button" class="start-stimuli-interface-B btn btn-primary ">Start Stimuli</button>
-            <h2 class='text-center para-title interface-B-stimuli'>TEST</h2>
             <div class='interface-B-touch'>
             </div>
         </div>
@@ -250,7 +249,6 @@
         <div class='row'>
             <h1 class='text-center para-title'>INTERFACE B - Block 1</h1>
             <button type="button" class="start-stimuli-interface-B btn btn-primary ">Start Stimuli</button>
-            <h2 class='text-center para-title interface-B-stimuli'>TEST</h2>
             <div class='interface-B-touch'>
             </div>
         </div>
