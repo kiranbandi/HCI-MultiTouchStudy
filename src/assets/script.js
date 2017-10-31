@@ -32,10 +32,7 @@ $(function () {
     ];
 
     // <================================ Touch Interface B Instruction Sheet Preperation =======================================>
-
     var graphicContainer = $("<div></div>").addClass("instruction-container").load("graphic-interface.html");
-    showScreen('screen-6');
-
     // <========================================= Common Event Handlers ========================================================>
 
     $('input[type="range"]').rangeslider({
@@ -47,23 +44,49 @@ $(function () {
         showScreen(screenID);
     });
 
-    $("#questionnaire").submit(function (event) {
+    $(".questionnaire").submit(function (event) {
         event.preventDefault();
-        swal("Thanks for taking part in the study .");
-        var answerStore = [];
-        for (var i = 1; i < 13; i++) {
-            answerStore.push(participantID + "," + (i >= 6 ? "B" : "A") + "," + $("#question-" + i).val())
+        swal("Thanks for your response.");
+        var answerStore = [],
+            Qtagger;
+
+        if (event.target.id == 'questionnaire-A') {
+            Qtagger = 'A'
+        } else {
+            Qtagger = 'B'
         }
-        saveData(participantID + "-" + "questionnaire", answerStore);
+        for (var i = 1; i <= 6; i++) {
+            answerStore.push(participantID + "," + Qtagger + "," + $("#question-" + Qtagger + "-" + i).val())
+        }
+        saveData(participantID + "-" + "questionnaire" + "-" + Qtagger, answerStore);
         resetStudy();
     });
+
+    $("#questionnaire-C").submit(function (event) {
+        event.preventDefault();
+        swal("Thanks for your response.");
+        var answerStore = [];
+
+        answerStore.push(participantID + "," + "C" + "," + $("input[name='gender']:checked").val());
+        answerStore.push(participantID + "," + "C" + "," + $("input[name='age']").val());
+        answerStore.push(participantID + "," + "C" + "," + $("input[name='touch-device-frequency']:checked").val());
+        answerStore.push(participantID + "," + "C" + "," + $("input[name='handedness']:checked").val());
+        answerStore.push(participantID + "," + "C" + "," + $("input[name='hand-preference']:checked").val());
+        answerStore.push(participantID + "," + "C" + "," + $("input[name='interface-preference']:checked").val());
+        
+
+        saveData(participantID + "-" + "questionnaire-final", answerStore);
+        resetStudy();
+    });
+
+
 
     $("#pid-form").submit(function (event) {
         event.preventDefault();
         var level = $("#choice").val();
         participantID = $("#participantid").val();
         if (participantID) {
-            showScreen(level == 'INTA' ? 'screen-3' : (level == 'INTB' ? 'screen-6' : 'screen-9'));
+            showScreen(level);
         } else {
             swal("Participant ID cannot be empty");
         }
@@ -125,6 +148,7 @@ $(function () {
             swal({
                 content: graphicContainer[0]
             });
+            $(".instruction-container")[0].scrollIntoView();
         }
 
         if (screenID == 'screen-7' || screenID == 'screen-8') {
@@ -366,7 +390,9 @@ $(function () {
         }
 
         if ((mode == 'training' || mode == 'INTB') && touchPause == false) {
-
+            $("." + screenID + " .selected-option").text(touchOutput).show().fadeOut({
+                duration: 1000
+            });
             if (responseStore == touchOutput) {
                 $("." + screenID + " .para-title").removeClass('red-border').addClass('green-border');
                 stopTimer();
