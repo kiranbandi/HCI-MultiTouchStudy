@@ -191,12 +191,14 @@
 }
 
 .interface-A-stimuli.red-border {
+    border: none;
     background: #e66868;
     color: white;
 }
 
 .interface-A-stimuli.green-border {
     background: #52a752;
+    border: none;
     color: white;
 }
 
