@@ -8,17 +8,17 @@
 
 .menu-tab {
     background: rgb(224, 220, 220);
-    height: 40px;
+    height: 50px;
     text-align: right;
 }
 
 .interface-A-touch .fa.fa-ellipsis-v {
-    margin: 0px 0px 0px 90%;
-    width: 10%;
+    margin: 0px 0px 0px 85%;
+    width: 15%;
     background: #cdd4d4;
     border-radius: 0px;
     border: 0px;
-    padding: 6px 13px 6px 15px;
+    padding: 11px 20px 11px 15px;
 }
 
 .main-options.text-center {
@@ -45,8 +45,19 @@
     font-size: 32px;
 }
 
+.jumbotron {
+    margin-bottom: 0px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #e2e2e2;
+}
+
 .screen-2 form {
     margin-top: 40px;
+}
+
+.screen-2 li {
+    font-weight: bold;
 }
 
 .screen-2 form a {
@@ -59,9 +70,9 @@
 
 .interface-A-touch .fa {
     border: 2px solid black;
-    padding: 5px 7px;
+    padding: 7px 10px;
     border-radius: 14px;
-    margin: 3px 20px;
+    margin: 4px 20px;
 }
 
 .interface-A-touch .fa.fa-pencil {
@@ -78,6 +89,7 @@
     color: #0c0b0b;
     font-size: 14px;
     border-radius: 12px;
+    padding: 10px 15px;
 }
 
 #sub-options-method {
@@ -107,33 +119,30 @@
     margin: 10px 20% 20px 20%;
 }
 
-.interface-A-stimuli.red-border {
-    border: 5px solid #e66868;
-}
-
-.interface-A-stimuli.green-border {
-    border: 5px solid #52a752;
-}
-
-.screen-9 {
+.screen-9,
+.screen-10 {
     margin: 20px 30px;
 }
 
-.screen-9 .para-title {
+.screen-9 .para-title,
+.screen-10 .para-title {
     padding-bottom: 5px;
 }
 
-.screen-9>h4 {
+.screen-9>h4,
+.screen-10>h4 {
     margin: 10px 0px;
 }
 
-.screen-9 label {
-    margin: 30px 10px 15px 10px;
+.screen-9 label,
+.screen-10 label {
+    margin: 50px 10px 15px 10px;
     text-align: justify;
     font-weight: bold;
 }
 
-.screen-9 .col-xs-12.text-center {
+.screen-9 .col-xs-12.text-center,
+.screen-10 .col-xs-12.text-center {
     margin-top: 40px;
 }
 
@@ -163,9 +172,9 @@
     top: 5px;
 }
 
-#questionnaire>div.form-group:nth-child(2)>label,
-#questionnaire>div.form-group:nth-child(9)>label {
-    margin-top: -10px;
+#questionnaire-A>div.form-group:nth-child(1)>label,
+#questionnaire-B>div.form-group:nth-child(1)>label {
+    margin-top: 20px;
 }
 
 #second-heading {
@@ -182,11 +191,13 @@
 }
 
 .interface-A-stimuli.red-border {
-    border: 5px solid #e66868;
+    background: #e66868;
+    color: white;
 }
 
 .interface-A-stimuli.green-border {
-    border: 5px solid #52a752;
+    background: #52a752;
+    color: white;
 }
 
 .screen-6,
@@ -234,9 +245,193 @@
 }
 
 .para-title.red-border {
-    border: 2px solid #e66868;
+    background: #e66868;
+    color: white;
 }
 
 .para-title.green-border {
-    border: 2px solid #52a752;
+    background: #52a752;
+    color: white;
+}
+
+
+/* ???????????????????????????????????????????????????????? */
+
+.learn-bit {
+    font-size: 15px;
+    font-family: sans-serif;
+    line-height: 22px;
+    margin: 20px;
+}
+
+.red-panel {
+    height: 400px;
+    width: 90%;
+    margin: 10px 5%;
+    background-color: #f3d8d0;
+    position: relative;
+}
+
+.finger-image {
+    height: 75px;
+    position: absolute;
+}
+
+#panel-1 .finger-1 {
+    top: 50px;
+}
+
+#panel-1 .finger-2 {
+    top: 50px;
+    left: 70px;
+}
+
+#panel-2 .finger-image {
+    top: 165px;
+}
+
+#panel-3 .finger-1 {
+    top: 165px
+}
+
+#panel-3 .finger-2 {
+    top: 50px;
+}
+
+#panel-4 .finger-1 {
+    top: 165px
+}
+
+#panel-4 .finger-2 {
+    top: 165px;
+    left: 90px;
+}
+
+#panel-5 .finger-1 {
+    top: 140px
+}
+
+#panel-5 .finger-2 {
+    top: 250px;
+}
+
+#panel-6 .finger-1 {
+    top: 80px
+}
+
+#panel-6 .finger-2 {
+    top: 5px;
+}
+
+#panel-7 .finger-1 {
+    bottom: 5px
+}
+
+#panel-7 .finger-2 {
+    bottom: 80px;
+}
+
+#panel-8 .finger-1 {
+    top: 10px;
+}
+
+#panel-8 .finger-2 {
+    top: 10px;
+    left: 70px;
+}
+
+#panel-9 .finger-1 {
+    bottom: 5px;
+}
+
+#panel-9 .finger-2 {
+    bottom: 5px;
+    right: 5px;
+}
+
+#panel-10 .finger-1 {
+    top: 165px;
+    right: 10px;
+}
+
+#panel-11 .finger-1 {
+    top: 165px;
+    right: 10px;
+}
+
+#panel-11 .finger-2 {
+    top: 60px;
+    right: 10px;
+}
+
+#panel-12 .finger-1 {
+    top: 165px;
+    right: 10px;
+}
+
+#panel-12 .finger-2 {
+    top: 165px;
+    left: 80px;
+}
+
+#panel-13 .finger-1 {
+    top: 165px;
+    right: 10px;
+}
+
+#panel-13 .finger-2 {
+    bottom: 5px;
+    right: 5px;
+}
+
+.instruction-container {
+    text-align: justify;
+}
+
+.graphic-text-overlay {
+    text-align: center;
+    position: absolute;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 30px;
+}
+
+#panel-1 .graphic-text-overlay {
+    top: 200px;
+}
+
+#panel-3 .graphic-text-overlay {
+    top: 50px;
+    right: 100px;
+}
+
+#panel-4 .graphic-text-overlay {
+    bottom: 50px;
+    right: 80px;
+}
+
+#panel-5 .graphic-text-overlay {
+    bottom: -20px;
+    left: -5px;
+}
+
+#panel-6 .graphic-text-overlay {
+    bottom: 150px;
+}
+
+#panel-8 .graphic-text-overlay {
+    top: 100px;
+}
+
+.selected-option {
+    padding: 30px 0px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: #5781a7;
+}
+
+.screen-11 .radio {
+    margin-left: 35px;
+    font-weight: normal;
 }

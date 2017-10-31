@@ -15,9 +15,8 @@ $(function () {
     var errorCount = 0;
 
     //  Variable store exclusively for INT A
-
     var possibleDemoOptions = ["PEN", "PENCIL", "BRUSH", "MEDIUM", "THIN", "THICK"];
-    var mainOptionsTouch, subOptionsTouch;
+    var mainOptionsTouch, subOptionsTouch, menuBarTouch, mainOptionsPress, subOptionsPress, menuBarPress;
 
     //  Variable store exclusively for INT B
     var INTBTouchPanel;
@@ -32,6 +31,8 @@ $(function () {
         "MEDIUM", "THIN", "PEN", "THIN", "BRUSH", "THICK", "PENCIL", "MEDIUM", "PEN", "THICK"
     ];
 
+    // <================================ Touch Interface B Instruction Sheet Preperation =======================================>
+    var graphicContainer = $("<div></div>").addClass("instruction-container").load("graphic-interface.html");
     // <========================================= Common Event Handlers ========================================================>
 
     $('input[type="range"]').rangeslider({
@@ -43,29 +44,55 @@ $(function () {
         showScreen(screenID);
     });
 
-    $("#questionnaire").submit(function (event) {
+    $(".questionnaire").submit(function (event) {
         event.preventDefault();
-        alert("Thanks for taking part in the study .");
-        var answerStore = [];
-        for (var i = 1; i < 13; i++) {
-            answerStore.push(participantID + "," + (i >= 6 ? "B" : "A") + "," + $("#question-" + i).val())
+        swal("Thanks for your response.");
+        var answerStore = [],
+            Qtagger;
+
+        if (event.target.id == 'questionnaire-A') {
+            Qtagger = 'A'
+        } else {
+            Qtagger = 'B'
         }
-        saveData(participantID + "-" + "questionnaire", answerStore);
+        for (var i = 1; i <= 6; i++) {
+            answerStore.push(participantID + "," + Qtagger + "," + $("#question-" + Qtagger + "-" + i).val())
+        }
+        saveData(participantID + "-" + "questionnaire" + "-" + Qtagger, answerStore);
         resetStudy();
     });
+
+    $("#questionnaire-C").submit(function (event) {
+        event.preventDefault();
+        swal("Thanks for your response.");
+        var answerStore = [];
+
+        answerStore.push(participantID + "," + "C" + "," + $("input[name='gender']:checked").val());
+        answerStore.push(participantID + "," + "C" + "," + $("input[name='age']").val());
+        answerStore.push(participantID + "," + "C" + "," + $("input[name='touch-device-frequency']:checked").val());
+        answerStore.push(participantID + "," + "C" + "," + $("input[name='handedness']:checked").val());
+        answerStore.push(participantID + "," + "C" + "," + $("input[name='hand-preference']:checked").val());
+        answerStore.push(participantID + "," + "C" + "," + $("input[name='interface-preference']:checked").val());
+        
+
+        saveData(participantID + "-" + "questionnaire-final", answerStore);
+        resetStudy();
+    });
+
+
 
     $("#pid-form").submit(function (event) {
         event.preventDefault();
         var level = $("#choice").val();
         participantID = $("#participantid").val();
         if (participantID) {
-            showScreen(level == 'INTA' ? 'screen-3' : (level == 'INTB' ? 'screen-6' : 'screen-9'));
+            showScreen(level);
         } else {
-            alert("Participant ID cannot be empty");
+            swal("Participant ID cannot be empty");
         }
     });
 
-    // <================================ Utlitlity Functions commonly used in both interfaces =================================>
+    // <================================ Utlitlity Functions commonly used in both interfaces ================================>
 
     function startTimer() {
         countDown = 0;
@@ -118,7 +145,10 @@ $(function () {
             INTBTrainingStoreIndex = 0;
             $(".screen-6 .para-title").text("INTERFACE B");
             reinitializeTouchPanel(screenID);
-            alert("This is a multi touch interface.The red coloured panel is where you can touch.To choose PEN,PENCIL or BRUSH you will need to first place a finger on the left side of the panel and then follow it with a second touch to the top , right or bottom of the first touch .For THIN,MEDIUM and THICK the first touch needs to be on the right of the screen and the second touch to the top , left or bottom of the first one.Make sure the first finger is in place while performing the second touch.Go ahead and try choosing a couple of options.Once you feel you are comfortable with the interface proceed to training.")
+            swal({
+                content: graphicContainer[0]
+            });
+            $(".instruction-container")[0].scrollIntoView();
         }
 
         if (screenID == 'screen-7' || screenID == 'screen-8') {
@@ -131,9 +161,9 @@ $(function () {
             $(".screen-6 .para-title").removeClass('small-box');
 
             if (screenID == 'screen-7') {
-                alert("This is the training phase.You will be shown 20 stimuli on screen and you will have to select the corresponding options on the red touch panel.Correct selections will be higlighted in green while wrong ones will be shown in red.");
+                swal("This is the training phase.You will be shown 20 stimuli on screen and you will have to select the corresponding options on the red touch panel.Correct selections will be higlighted in green while wrong ones will be shown in red.");
             } else {
-                alert("This is the start of the Block 1 for INTERFACE B.PLease be as fast as you can");
+                swal("This is the start of the Block 1 for INTERFACE B.PLease be as fast as you can");
             }
         }
 
@@ -174,7 +204,7 @@ $(function () {
                 } else {
                     console.log(TrialOutputStore);
                     saveData(participantID + "-" + "INTA", TrialOutputStore);
-                    alert("Interface A Study Complete.If you havent finished Interface B please proceed to that else proceed to the Questionnaire.");
+                    swal("Interface A Study Complete.If you havent finished Interface B please proceed to that else proceed to the Questionnaire.");
                     resetStudy();
                 }
             }
@@ -183,25 +213,31 @@ $(function () {
 
     // Function that handles touch events for interface A
     function reinitialize(screenIndex) {
-        if (mainOptionsTouch) {
+        if (mainOptionsTouch)
             mainOptionsTouch.destroy();
-        }
-        if (subOptionsTouch) {
+        if (subOptionsTouch)
             subOptionsTouch.destroy();
+        if (menuBarTouch)
+            menuBarTouch.destroy();
+        if (mainOptionsPress)
+            mainOptionsTouch.destroy();
+        if (subOptionsPress)
+            subOptionsTouch.destroy();
+        if (menuBarPress)
+            menuBarTouch.destroy();
+
+        function MenuCallBack(event) {
+            $("." + screenIndex + " .interface-A-touch .main-options").toggleClass('hidden');
         }
 
-        menuBarTouch = Hammer($("." + screenIndex + ' .interface-A-touch .fa-ellipsis-v')[0]).on("tap", function (event) {
-            $("." + screenIndex + " .interface-A-touch .main-options").toggleClass('hidden');
-        });
-
-        mainOptionsTouch = Hammer($("." + screenIndex + ' .interface-A-touch .main-options')[0]).on("tap", function (event) {
+        function mainOptionsCallBack(event) {
             if (event.target && event.target.id && (event.target.id == 'method' || event.target.id == 'thickness')) {
                 $("." + screenIndex + " .sub-options").addClass("hidden");
                 $("." + screenIndex + " #sub-options-" + event.target.id).removeClass('hidden');
             }
-        });
+        }
 
-        subOptionsTouch = Hammer($("." + screenIndex + ' .interface-A-touch .sub-options-container')[0]).on("tap", function (event) {
+        function subOptionsCallBack(event) {
             if (event.target && event.target.id && (event.target.id.indexOf("interfaceA-") >= 0)) {
                 $("." + screenIndex + " .sub-options").addClass("hidden");
                 $("." + screenIndex + " .interface-A-touch .main-options").addClass('hidden');
@@ -225,12 +261,17 @@ $(function () {
                     }
                 }
             }
-        });
+        }
+        // Quick Fix so touch works for press and tap 
+        menuBarTouch = Hammer($("." + screenIndex + ' .interface-A-touch .fa-ellipsis-v')[0]).on("tap", MenuCallBack);
+        mainOptionsTouch = Hammer($("." + screenIndex + ' .interface-A-touch .main-options')[0]).on("tap", mainOptionsCallBack);
+        subOptionsTouch = Hammer($("." + screenIndex + ' .interface-A-touch .sub-options-container')[0]).on("tap", subOptionsCallBack);
+        menuBarPress = Hammer($("." + screenIndex + ' .interface-A-touch .fa-ellipsis-v')[0]).on("press", MenuCallBack);
+        mainOptionsPress = Hammer($("." + screenIndex + ' .interface-A-touch .main-options')[0]).on("press", mainOptionsCallBack);
+        subOptionsPress = Hammer($("." + screenIndex + ' .interface-A-touch .sub-options-container')[0]).on("press", subOptionsCallBack);
     }
 
-
     // <==========================================Functions built exclusively for INTERFACE B =========================================================
-
 
     // Event listener that starts showing stimuli in INT B when button is clicked 
     $(".start-stimuli-interface-B").click(function (event) {
@@ -250,7 +291,7 @@ $(function () {
                     startTimer();
                 } else {
                     // Training over 
-                    alert("Your training level has been completed . You may begin Block 1");
+                    swal("Your training level has been completed . You may begin Block 1");
                     showScreen('screen-8');
                 }
 
@@ -269,7 +310,7 @@ $(function () {
                 } else {
                     console.log(TrialOutputStore);
                     saveData(participantID + "-" + "INTB", TrialOutputStore);
-                    alert("Interface B Study Complete.If you havent finished Interface A please proceed to that else proceed to the Questionnaire.");
+                    swal("Interface B Study Complete.If you havent finished Interface A please proceed to that else proceed to the Questionnaire.");
                     resetStudy();
                 }
             }
@@ -349,7 +390,9 @@ $(function () {
         }
 
         if ((mode == 'training' || mode == 'INTB') && touchPause == false) {
-
+            $("." + screenID + " .selected-option").text(touchOutput).show().fadeOut({
+                duration: 1000
+            });
             if (responseStore == touchOutput) {
                 $("." + screenID + " .para-title").removeClass('red-border').addClass('green-border');
                 stopTimer();
