@@ -73,7 +73,7 @@ $(function () {
         answerStore.push(participantID + "," + "C" + "," + $("input[name='handedness']:checked").val());
         answerStore.push(participantID + "," + "C" + "," + $("input[name='hand-preference']:checked").val());
         answerStore.push(participantID + "," + "C" + "," + $("input[name='interface-preference']:checked").val());
-        
+
 
         saveData(participantID + "-" + "questionnaire-final", answerStore);
         resetStudy();
@@ -128,10 +128,12 @@ $(function () {
 
         // INTERFACE A
         if (screenID == 'screen-3') {
+            touchPause = false;
             mode = 'demo';
             reinitialize(screenID);
         }
         if (screenID == 'screen-4' || screenID == 'screen-5') {
+            touchPause = true;
             mode = (screenID == 'screen-4') ? 'training' : 'INTA';
             reinitialize(screenID);
             // show start stimuli button and hide existing stimuli
@@ -186,17 +188,20 @@ $(function () {
         window.setTimeout(function () {
             if (screenID == 'screen-4') {
                 responseStore = possibleDemoOptions[Math.floor(Math.random() * 6)];
+                touchPause = false;
                 $("." + screenID + ' .interface-A-stimuli').removeClass('red-border').removeClass('green-border').text(responseStore).removeClass('hidden');
                 startTimer();
             } else {
                 if (TrialStoreIndex[1] < 10) {
                     responseStore = TrialOptions[TrialStoreIndex[0]][TrialStoreIndex[1]];
                     TrialStoreIndex[1] = TrialStoreIndex[1] + 1; // increment trial value
+                    touchPause = false;
                     $("." + screenID + ' .interface-A-stimuli').removeClass('red-border').removeClass('green-border').text(responseStore).removeClass('hidden');
                     startTimer();
                 } else if (TrialStoreIndex[0] == 0 && TrialStoreIndex[1] == 10) {
                     TrialStoreIndex[0] = TrialStoreIndex[0] + 1; // increment block value
                     TrialStoreIndex[1] = 0; // reset trial value
+                    touchPause = true;
                     $("." + screenID + " .start-stimuli-interface-A").removeClass('hidden');
                     $("." + screenID + " .interface-A-stimuli").addClass("hidden");
                     $("." + screenID + " .menu-tab").addClass("hidden");
@@ -227,18 +232,21 @@ $(function () {
             menuBarTouch.destroy();
 
         function MenuCallBack(event) {
-            $("." + screenIndex + " .interface-A-touch .main-options").toggleClass('hidden');
+            if (!touchPause) {
+                $("." + screenIndex + " .interface-A-touch .main-options").toggleClass('hidden');
+            }
+
         }
 
         function mainOptionsCallBack(event) {
-            if (event.target && event.target.id && (event.target.id == 'method' || event.target.id == 'thickness')) {
+            if (!touchPause && event.target && event.target.id && (event.target.id == 'method' || event.target.id == 'thickness')) {
                 $("." + screenIndex + " .sub-options").addClass("hidden");
                 $("." + screenIndex + " #sub-options-" + event.target.id).removeClass('hidden');
             }
         }
 
         function subOptionsCallBack(event) {
-            if (event.target && event.target.id && (event.target.id.indexOf("interfaceA-") >= 0)) {
+            if (!touchPause && event.target && event.target.id && (event.target.id.indexOf("interfaceA-") >= 0)) {
                 $("." + screenIndex + " .sub-options").addClass("hidden");
                 $("." + screenIndex + " .interface-A-touch .main-options").addClass('hidden');
                 var selectedValue = event.target.id.split("interfaceA-")[1];
@@ -246,6 +254,7 @@ $(function () {
                     $("." + screenIndex + ' #interfaceA-selected-option').text("SELECTED OPTION - " + selectedValue);
                 } else if (mode == "training" || mode == "INTA") {
                     if (responseStore == selectedValue) {
+                        touchPause = true;
                         $("." + screenIndex + ' .interface-A-stimuli').removeClass('red-border').addClass('green-border');
                         stopTimer();
                         showStimuli(screenIndex);
