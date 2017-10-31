@@ -1,7 +1,7 @@
 # HCI-MultiTouchStudy
-Project developed as a course requirement for CMPT 866 – Research Methods in HCI at USASK
+## This website is exclusively made for an android mobile device
 
-# This website is exclusively made for an android mobile device
+Project developed as a course requirement for CMPT 866 – Research Methods in HCI at USASK
 
 The project is a comparative study of the effectiveness between position specific multi touch interface and a standard menu based interface in small screen touch devices. In existing mobile devices menu bars are hidden by default to maximise screen space and thus, when a user needs to perform an action they need to invoke the menu bar which is not only time consuming but disrupts user focus.
 
