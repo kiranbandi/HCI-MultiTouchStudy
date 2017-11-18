@@ -9,8 +9,8 @@ $(function () {
     var TrialStoreIndex = [0, 0]; // Block,Trial
     var TrialOutputStore = [];
     var TrialOptions = [
-        ["PEN", "BRUSH", "MEDIUM", "THIN", "THICK", "PENCIL", "MEDIUM", "PEN", "THICK", "THIN"],
-        ["THIN", "THICK", "PEN", "MEDIUM", "PENCIL", "THICK", "THIN", "MEDIUM", "BRUSH", "PEN"]
+        ["PEN", "BRUSH", "MEDIUM", "THIN", "THICK", "PENCIL", "MEDIUM", "PEN", "THICK", "THIN", "BRUSH", "PENCIL", "THIN", "MEDIUM", "PEN"],
+        ["THIN", "THICK", "PEN", "MEDIUM", "PENCIL", "BRUSH", "PENCIL", "THIN", "MEDIUM", "PEN", "THICK", "THIN", "MEDIUM", "BRUSH", "PEN"]
     ];
     var errorCount = 0;
 
@@ -26,9 +26,11 @@ $(function () {
         ["THIN", "MEDIUM", "THICK"]
     ];
     var INTBTrainingStoreIndex = 0;
+    var INTATrainingStoreIndex = 0;
     var INTBOptions = [
         "PEN", "PENCIL", "BRUSH", "THIN", "MEDIUM", "THICK", "BRUSH", "PENCIL", "PEN", "THICK",
-        "MEDIUM", "THIN", "PEN", "THIN", "BRUSH", "THICK", "PENCIL", "MEDIUM", "PEN", "THICK"
+        "MEDIUM", "THIN", "PEN", "THIN", "BRUSH", "THICK", "PENCIL", "MEDIUM", "PEN", "THICK",
+        "THIN", "MEDIUM", "THICK", "PEN", "PENCIL", "BRUSH", "MEDIUM", "BRUSH", "PEN", "THIN",
     ];
 
     // <================================ Touch Interface B Instruction Sheet Preperation =======================================>
@@ -48,7 +50,8 @@ $(function () {
         event.preventDefault();
         swal("Thanks for your response.");
         var answerStore = [],
-            Qtagger;
+            Qtagger,
+            questionnaireStore = '';
 
         if (event.target.id == 'questionnaire-A') {
             Qtagger = 'A'
@@ -56,9 +59,11 @@ $(function () {
             Qtagger = 'B'
         }
         for (var i = 1; i <= 6; i++) {
-            answerStore.push(participantID + "," + Qtagger + "," + $("#question-" + Qtagger + "-" + i).val())
+            questionnaireStore += $("#question-" + Qtagger + "-" + i).val() + (i != 6 ? ',' : '');
+
         }
-        saveData(participantID + "-" + "questionnaire" + "-" + Qtagger, answerStore);
+        answerStore.push(participantID + "," + event.target.id + "," + questionnaireStore)
+        saveData(participantID + "-" + event.target.id, answerStore);
         resetStudy();
     });
 
@@ -66,19 +71,15 @@ $(function () {
         event.preventDefault();
         swal("Thanks for your response.");
         var answerStore = [];
-
         answerStore.push(participantID + "," + "C" + "," + $("input[name='gender']:checked").val());
         answerStore.push(participantID + "," + "C" + "," + $("input[name='age']").val());
         answerStore.push(participantID + "," + "C" + "," + $("input[name='touch-device-frequency']:checked").val());
         answerStore.push(participantID + "," + "C" + "," + $("input[name='handedness']:checked").val());
         answerStore.push(participantID + "," + "C" + "," + $("input[name='hand-preference']:checked").val());
         answerStore.push(participantID + "," + "C" + "," + $("input[name='interface-preference']:checked").val());
-
-
         saveData(participantID + "-" + "questionnaire-final", answerStore);
         resetStudy();
     });
-
 
 
     $("#pid-form").submit(function (event) {
@@ -116,12 +117,20 @@ $(function () {
     }
 
     function saveData(name, dataArray) {
-        var csvContent = "data:text/csv;charset=utf-8," + dataArray.join("\n");
-        var encodedUri = encodeURI(csvContent);
-        var link = document.createElement("a");
+        var csvContent = "data:text/csv;charset=utf-8," + dataArray.join("\n"),
+            encodedUri = encodeURI(csvContent),
+            link = document.createElement("a"),
+            timeStamp = (new Date()).toString().split("GMT")[0];
         link.setAttribute("href", encodedUri);
-        link.setAttribute("download", name + ".csv");
+        link.setAttribute("download", name + "-" + timeStamp + ".csv");
         link.click();
+
+        // quick hack as fix while adding logging for training batches
+        TrialStoreIndex = [0, 0];
+        responseStore = '';
+        TrialOutputStore = [];
+        errorCount = 0;
+
     }
 
     function showScreen(screenID) {
@@ -134,6 +143,7 @@ $(function () {
         }
         if (screenID == 'screen-4' || screenID == 'screen-5') {
             touchPause = true;
+            INTBTrainingStoreIndex = 0;
             mode = (screenID == 'screen-4') ? 'training' : 'INTA';
             reinitialize(screenID);
             // show start stimuli button and hide existing stimuli
@@ -154,21 +164,18 @@ $(function () {
         }
 
         if (screenID == 'screen-7' || screenID == 'screen-8') {
-            resetStudy();
             mode = (screenID == 'screen-7') ? 'training' : 'INTB';
             touchPause = true;
             reinitializeTouchPanel(screenID);
             // show start stimuli button and hide existing stimuli
             $("." + screenID + " .start-stimuli-interface-B").removeClass("hidden");
             $(".screen-6 .para-title").removeClass('small-box');
-
             if (screenID == 'screen-7') {
-                swal("This is the training phase.You will be shown 20 stimuli on screen and you will have to select the corresponding options on the red touch panel.Correct selections will be higlighted in green while wrong ones will be shown in red.");
+                swal("This is the training phase.You will be shown 30 stimuli on screen and you will have to select the corresponding options on the red touch panel.Correct selections will be higlighted in green while wrong ones will be shown in red.");
             } else {
                 swal("This is the start of the Block 1 for INTERFACE B.PLease be as fast as you can");
             }
         }
-
         $("body>.screen").addClass('hidden');
         $("body>." + screenID).removeClass('hidden');
     }
@@ -187,18 +194,26 @@ $(function () {
     function showStimuli(screenID) {
         window.setTimeout(function () {
             if (screenID == 'screen-4') {
-                responseStore = possibleDemoOptions[Math.floor(Math.random() * 6)];
-                touchPause = false;
-                $("." + screenID + ' .interface-A-stimuli').removeClass('red-border').removeClass('green-border').text(responseStore).removeClass('hidden');
-                startTimer();
+                if (INTATrainingStoreIndex < INTBOptions.length) {
+                    responseStore = INTBOptions[INTATrainingStoreIndex++];
+                    touchPause = false;
+                    $("." + screenID + ' .interface-A-stimuli').removeClass('red-border').removeClass('green-border').text(responseStore).removeClass('hidden');
+                    startTimer();
+                } else {
+                    // Training over 
+                    console.log(TrialOutputStore);
+                    saveData(participantID + "-" + "INTA-Training", TrialOutputStore);
+                    swal("Your training level is over. You may begin Block 1");
+                    showScreen('screen-5');
+                }
             } else {
-                if (TrialStoreIndex[1] < 10) {
+                if (TrialStoreIndex[1] < 15) {
                     responseStore = TrialOptions[TrialStoreIndex[0]][TrialStoreIndex[1]];
                     TrialStoreIndex[1] = TrialStoreIndex[1] + 1; // increment trial value
                     touchPause = false;
                     $("." + screenID + ' .interface-A-stimuli').removeClass('red-border').removeClass('green-border').text(responseStore).removeClass('hidden');
                     startTimer();
-                } else if (TrialStoreIndex[0] == 0 && TrialStoreIndex[1] == 10) {
+                } else if (TrialStoreIndex[0] == 0 && TrialStoreIndex[1] == 15) {
                     TrialStoreIndex[0] = TrialStoreIndex[0] + 1; // increment block value
                     TrialStoreIndex[1] = 0; // reset trial value
                     touchPause = true;
@@ -258,14 +273,10 @@ $(function () {
                         $("." + screenIndex + ' .interface-A-stimuli').removeClass('red-border').addClass('green-border');
                         stopTimer();
                         showStimuli(screenIndex);
-                        if (mode == 'INTA') {
-                            TrialOutputStore.push(participantID + "," + mode + "," + TrialStoreIndex.join(",") + "," + countDown + "," + errorCount);
-                        }
+                        TrialOutputStore.push(participantID + "," + mode + "," + TrialStoreIndex.join(",") + "," + countDown + "," + errorCount + "," + (new Date()).getTime());
                         errorCount = 0;
                     } else {
-                        if (mode == 'INTA') {
-                            errorCount++;
-                        }
+                        errorCount++;
                         $("." + screenIndex + ' .interface-A-stimuli').addClass('red-border').removeClass('green-border');
                     }
                 }
@@ -300,17 +311,19 @@ $(function () {
                     startTimer();
                 } else {
                     // Training over 
+                    console.log(TrialOutputStore);
+                    saveData(participantID + "-" + "INTB-Training", TrialOutputStore);
                     swal("Your training level has been completed . You may begin Block 1");
                     showScreen('screen-8');
                 }
 
             } else {
-                if (TrialStoreIndex[1] < 10) {
+                if (TrialStoreIndex[1] < 15) {
                     responseStore = TrialOptions[TrialStoreIndex[0]][TrialStoreIndex[1]];
                     TrialStoreIndex[1] = TrialStoreIndex[1] + 1; // increment trial value
                     $("." + screenID + ' .para-title').addClass("small-box").removeClass('red-border').removeClass('green-border').text(responseStore);
                     startTimer();
-                } else if (TrialStoreIndex[0] == 0 && TrialStoreIndex[1] == 10) {
+                } else if (TrialStoreIndex[0] == 0 && TrialStoreIndex[1] == 15) {
                     TrialStoreIndex[0] = TrialStoreIndex[0] + 1; // increment block value
                     TrialStoreIndex[1] = 0; // reset trial value
                     $("." + screenID + " .start-stimuli-interface-B").removeClass('hidden');
@@ -406,14 +419,10 @@ $(function () {
                 $("." + screenID + " .para-title").removeClass('red-border').addClass('green-border');
                 stopTimer();
                 showStimuliINTB(screenID);
-                if (mode == 'INTB') {
-                    TrialOutputStore.push(participantID + "," + mode + "," + TrialStoreIndex.join(",") + "," + countDown + "," + errorCount);
-                }
+                TrialOutputStore.push(participantID + "," + mode + "," + TrialStoreIndex.join(",") + "," + countDown + "," + errorCount + "," + (new Date()).getTime());
                 errorCount = 0;
             } else {
-                if (mode == "INTB") {
-                    errorCount++;
-                }
+                errorCount++;
                 $("." + screenID + " .para-title").addClass('red-border').removeClass('green-border');
             }
 

@@ -149,27 +149,43 @@
 .range-master {
     position: absolute;
     width: 84%;
+    font-size: 9px;
+    font-weight: bold;
+}
+
+.range-master>span {
+    position: absolute;
+    top: 5px;
+    width: 50px;
+    text-align: center;
 }
 
 .range-master .left-range {
-    position: absolute;
     left: -15px;
-    font-weight: bold;
-    top: 5px;
 }
 
-.range-master .left-range {
-    position: absolute;
-    left: -15px;
-    font-weight: bold;
-    top: 5px;
+.range-master .low {
+    left: 34px;
+}
+
+.range-master .md-low {
+    left: 73px;
+}
+
+.range-master .neutral {
+    right: 128px;
+}
+
+.range-master .md-high {
+    right: 80px;
+}
+
+.range-master .high {
+    right: 33px;
 }
 
 .range-master .right-range {
-    position: absolute;
     right: -15px;
-    font-weight: bold;
-    top: 5px;
 }
 
 #questionnaire-A>div.form-group:nth-child(1)>label,
