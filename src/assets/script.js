@@ -67,7 +67,8 @@ $(function () {
         resetStudy();
     });
 
-    $("#questionnaire-C").submit(function (event) {
+
+    $("#q-final-submit").click(function (event) {
         event.preventDefault();
         swal("Thanks for your response.");
         var answerStore = [];
@@ -79,8 +80,12 @@ $(function () {
         answerStore.push(participantID + "," + "C" + "," + $("input[name='interface-preference']:checked").val());
         saveData(participantID + "-" + "questionnaire-final", answerStore);
         resetStudy();
-    });
+    })
 
+    $("#questionnaire-C").submit(function(event){
+        event.preventDefault();
+    });
+ 
 
     $("#pid-form").submit(function (event) {
         event.preventDefault();
@@ -194,7 +199,7 @@ $(function () {
     function showStimuli(screenID) {
         window.setTimeout(function () {
             if (screenID == 'screen-4') {
-                if (INTATrainingStoreIndex < INTBOptions.length) {
+                if (INTATrainingStoreIndex < 20) {
                     responseStore = INTBOptions[INTATrainingStoreIndex++];
                     touchPause = false;
                     $("." + screenID + ' .interface-A-stimuli').removeClass('red-border').removeClass('green-border').text(responseStore).removeClass('hidden');
