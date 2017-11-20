@@ -199,7 +199,7 @@ $(function () {
     function showStimuli(screenID) {
         window.setTimeout(function () {
             if (screenID == 'screen-4') {
-                if (INTATrainingStoreIndex < 20) {
+                if (INTATrainingStoreIndex < 15) {
                     responseStore = INTBOptions[INTATrainingStoreIndex++];
                     touchPause = false;
                     $("." + screenID + ' .interface-A-stimuli').removeClass('red-border').removeClass('green-border').text(responseStore).removeClass('hidden');
